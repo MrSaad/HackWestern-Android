@@ -1,11 +1,10 @@
 package com.mrsaad.hackwestern;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 
 public class MapsFragment extends Fragment {
@@ -22,6 +21,7 @@ public class MapsFragment extends Fragment {
         //set view elements
         View root = inflater.inflate(R.layout.fragment_maps, container, false);
 
+
         return root;
     }
 
@@ -30,5 +30,4 @@ public class MapsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
     }
-
 }
