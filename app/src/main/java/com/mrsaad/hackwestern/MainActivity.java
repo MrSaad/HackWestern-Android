@@ -87,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = com.mrsaad.hackwestern.MapsFragment.class;
                 break;
             case R.id.nav_fifth_fragment:
+                fragmentClass = com.mrsaad.hackwestern.MentorsFragment.class;
+                break;
+            case R.id.nav_sixth_fragment:
                 fragmentClass = com.mrsaad.hackwestern.Sponsors.class;
                 break;
             default:
