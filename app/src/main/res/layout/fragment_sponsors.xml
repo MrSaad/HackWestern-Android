@@ -1,0 +1,22 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.mrsaad.hackwestern.Sponsors"
+    android:padding="10dp">
+
+
+    <TableRow
+        android:paddingTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" >
+
+        <TextView
+            android:id="@+id/table_header_title_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textSize="20sp"
+            android:textColor="?attr/colorPrimary"/>
+
+    </TableRow>
+
+</TableLayout>
