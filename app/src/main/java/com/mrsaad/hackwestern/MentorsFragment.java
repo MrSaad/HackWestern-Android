@@ -19,7 +19,7 @@ public class MentorsFragment extends Fragment {
     String url;
 
     public MentorsFragment() {
-        url = "https://hackwestern.com/updates";
+        url = "https://hackwestern.com/mentors";
     }
 
 

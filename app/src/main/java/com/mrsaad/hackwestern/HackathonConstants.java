@@ -13,7 +13,7 @@ import java.util.Locale;
  */
 public class HackathonConstants {
 
-    private String hackathonEndTimeString = "11/20/2015 11:44 am";
+    private String hackathonEndTimeString = "11/21/2015 11:44 pm";
     public Date hackathonEndTime;
     public static Context appContext;
 
@@ -29,8 +29,7 @@ public class HackathonConstants {
 
     }
 
-    public String countdownText(){
-
+    private long timeLeftInSeconds(){
         //get difference in seconds
         Date currTime = new Date();
         long diff = hackathonEndTime.getTime() - currTime.getTime();
@@ -40,12 +39,26 @@ public class HackathonConstants {
         if(diffSec > 36*3600){diffSec = 36*3600;}
         if(diffSec < 0){diffSec = 0;}
 
+        return diffSec;
+    }
+
+
+    public String countdownText(){
+
+        long diffSec = timeLeftInSeconds();
+
         //format things
         String hours = diffSec/3600 < 10 ? "0"+diffSec/3600 : ""+diffSec/3600;
         String mins = diffSec/60%60 < 10 ? "0"+diffSec/60%60 : ""+diffSec/60%60;
         String secs = diffSec%60 < 10 ? "0"+diffSec%60 : ""+diffSec%60;
 
         return hours+":"+mins+":"+secs;
+    }
+
+    public String countdownHour(){
+        long diffSec = timeLeftInSeconds();
+        String hours = diffSec/3600 < 10 ? "0"+diffSec/3600 : ""+diffSec/3600;
+        return hours;
     }
 
     public int countdownTextColor(){
