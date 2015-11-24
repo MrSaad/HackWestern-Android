@@ -59,8 +59,8 @@ public class MapsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public void updateSelected(){
-        switch (selected){
+    public void updateSelected() {
+        switch (selected) {
             case 1:
                 mapButton1.setBackgroundColor(Color.parseColor("#512DA8"));
                 mapButton1.setTextColor(Color.WHITE);
