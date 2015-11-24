@@ -35,19 +35,21 @@ public class ScheduleFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         //initialize items
-        ArrayList<String> days = new ArrayList<String>(Arrays.asList("Friday", "Saturday", "Sunday"));
+        ArrayList<String> days = new ArrayList<String>(Arrays.asList("November 27, 2015", "November 28, 2015", "November 29, 2015"));
         ArrayList<Object> items = new ArrayList<Object>();
 
         //add stuff to items from JSON
+        int tag=0;
         try{
-            JSONObject obj = new JSONObject(loadJSONFromAsset("schedule.json"));
+            JSONObject obj = new JSONObject(loadJSONFromAsset("schedule_info.json"));
             for(String day: days){
                 items.add(day);
                 JSONArray arr = obj.getJSONArray(day);
                 Log.v("DEBUG", arr.getJSONObject(0).toString());
                 for(int i=0; i< arr.length(); i++){
                     JSONObject currObj = arr.getJSONObject(i);
-                    items.add(new ScheduleItem(currObj.getString("title"), currObj.getString("time"), currObj.getString("content")));
+                    items.add(new ScheduleItem(currObj.getString("title"), currObj.getString("time"), currObj.getString("info"),
+                            currObj.getString("location"), tag++));
                 }
             }
         }catch(Exception e){e.printStackTrace();}
@@ -131,7 +133,7 @@ public class ScheduleFragment extends Fragment {
             if (convertView == null) {
                 switch (type) {
                     case TYPE_SCHEDULE:
-                        convertView = inflater.inflate(R.layout.schedule_list_item, parent, false);
+                        convertView = inflater.inflate(R.layout.schedule_list_item_2, parent, false);
                         break;
                     case TYPE_HEADER:
                         convertView = inflater.inflate(R.layout.section_header, parent, false);
@@ -145,11 +147,16 @@ public class ScheduleFragment extends Fragment {
                     // Lookup view for data population
                     TextView titleView = (TextView) convertView.findViewById(R.id.schedule_list_title);
                     TextView dateView = (TextView) convertView.findViewById(R.id.schedule_list_date);
+                    TextView locationView = (TextView) convertView.findViewById(R.id.schedule_list_location);
                     TextView contentView = (TextView) convertView.findViewById(R.id.schedule_list_content);
                     // Populate the data into the template view using the data object
                     titleView.setText(scheduleItem.title);
                     dateView.setText(scheduleItem.date);
+                    locationView.setText(scheduleItem.location);
                     contentView.setText(scheduleItem.content);
+                    //set background color based on tag
+//                    if(scheduleItem.tag%2==0){convertView.setBackgroundColor(Color.parseColor("#EDE7F6"));}
+//                    else{convertView.setBackgroundColor(Color.parseColor("#D1C4E9"));}
                     break;
                 case TYPE_HEADER:
                     TextView headerTitle = (TextView) convertView.findViewById(R.id.section_header_title);

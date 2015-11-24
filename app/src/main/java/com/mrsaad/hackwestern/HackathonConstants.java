@@ -13,7 +13,7 @@ import java.util.Locale;
  */
 public class HackathonConstants {
 
-    private String hackathonEndTimeString = "11/21/2015 11:44 pm";
+    private String hackathonEndTimeString = "11/26/2015 11:44 pm";
     public Date hackathonEndTime;
     public static Context appContext;
 
@@ -29,14 +29,14 @@ public class HackathonConstants {
 
     }
 
-    private long timeLeftInSeconds(){
+    public long timeLeftInSeconds(){
         //get difference in seconds
         Date currTime = new Date();
         long diff = hackathonEndTime.getTime() - currTime.getTime();
         long diffSec = diff/1000;
 
         //truncate to show relevant time
-        if(diffSec > 36*3600){diffSec = 36*3600;}
+        if(diffSec > 34.5*3600){diffSec = (long)(34.5*3600);}
         if(diffSec < 0){diffSec = 0;}
 
         return diffSec;

@@ -1,5 +1,6 @@
 package com.mrsaad.hackwestern;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -16,10 +17,17 @@ import java.io.InputStream;
 
 public class HomeFragment extends Fragment {
 
+    //global constant functions
+    HackathonConstants constants;
+
+    //relevant text views
     TextView timerTextView;
     TextView complimentsTextView;
-    HackathonConstants constants;
+
+    //the compliments JSON
     JSONObject complimentsJSON;
+
+    //timer handler variables
     Handler h;
     int updateDelay = 1000;
 
@@ -41,24 +49,18 @@ public class HomeFragment extends Fragment {
             complimentsJSON = new JSONObject(loadJSONFromAsset("compliments.json"));
         }catch(Exception e){e.printStackTrace();}
 
+        //set initial layout data
+        updateData();
 
-        //set initial text
-        timerTextView.setText(constants.countdownText());
-        timerTextView.setTextColor(constants.countdownTextColor());
-        try{
-            complimentsTextView.setText(complimentsJSON.getString(constants.countdownHour()));
-        }catch(Exception e){e.printStackTrace();}
-
-
-        //set updater
+        //set updater to update every second
         h = new Handler();
         h.postDelayed(new Runnable(){
             public void run(){
-                timerTextView.setText(constants.countdownText());
-                timerTextView.setTextColor(constants.countdownTextColor());
-                try{
-                    complimentsTextView.setText(complimentsJSON.getString(constants.countdownHour()));
-                }catch(Exception e){e.printStackTrace();}
+
+                //update the views with new data
+                updateData();
+
+                //tell handler to fire again after some time
                 h.postDelayed(this, updateDelay);
             }
         }, updateDelay);
@@ -72,8 +74,22 @@ public class HomeFragment extends Fragment {
 
     }
 
+    public void updateData(){
+
+        //set timer text and color
+        timerTextView.setText(constants.countdownText());
+        timerTextView.setTextColor(Color.parseColor("#673AB7"));
+
+        //set compliment only if hackathon has started
+        try{
+            if(constants.timeLeftInSeconds() < 34.5*3600){
+                complimentsTextView.setText(complimentsJSON.getString(constants.countdownHour()));
+            }else{complimentsTextView.setText("...");}
+        }catch(Exception e){e.printStackTrace();}
+    }
+
     public String loadJSONFromAsset(String fileName) {
-        String json = null;
+        String json;
         try {
             InputStream is = HackathonConstants.appContext.getAssets().open(fileName);
             int size = is.available();
