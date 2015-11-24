@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = (Fragment) com.mrsaad.hackwestern.HomeFragment.class.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-            setTitle("Home");
+            setTitle("HackWestern 2");
         }catch(Exception e){e.printStackTrace();}
 
     }
@@ -92,8 +92,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_sixth_fragment:
                 fragmentClass = com.mrsaad.hackwestern.Sponsors.class;
                 break;
+            case R.id.nav_seventh_fragment:
+                fragmentClass = com.mrsaad.hackwestern.InfoFragment.class;
+                break;
             default:
                 fragmentClass = com.mrsaad.hackwestern.HomeFragment.class;
+                break;
         }
 
         try {
@@ -108,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
-        setTitle(menuItem.getTitle());
+        if(menuItem.getItemId()==R.id.nav_first_fragment){setTitle("HackWestern 2");}
+        else{setTitle(menuItem.getTitle());}
         mDrawer.closeDrawers();
     }
 
