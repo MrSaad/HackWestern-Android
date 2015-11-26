@@ -1,9 +1,13 @@
 package com.mrsaad.hackwestern;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +61,7 @@ public class Sponsors extends Fragment {
                     //store as a SponsorRow of 5 elements
                     if(i!=0 && i%5==0){
                         items.add(new SponsorRow(sponsorRow));
-                        sponsorRow.clear();
+                        sponsorRow = new ArrayList<>();
                     }
 
                     JSONObject currObj = arr.getJSONObject(i);
@@ -68,7 +72,7 @@ public class Sponsors extends Fragment {
                 //add leftovers as SponsorRow as well
                 if(sponsorRow.size()!=0){
                     items.add(new SponsorRow(sponsorRow));
-                    sponsorRow.clear();
+                    sponsorRow = new ArrayList<>();
                 }
 
             }
@@ -76,6 +80,7 @@ public class Sponsors extends Fragment {
 
         //initialize list view
         ListView listView = (ListView) root.findViewById(R.id.sponsor_list);
+        listView.setDivider(null);
         listView.setAdapter(new SponsorAdapter(root.getContext(), items));
 
         return root;
@@ -175,7 +180,7 @@ public class Sponsors extends Fragment {
 
             switch(type) {
                 case TYPE_SPONSOR:
-                    SponsorRow sponsorRow = (SponsorRow)getItem(position);
+                    final SponsorRow sponsorRow = (SponsorRow)getItem(position);
                     //initialize the relevant views
                     ImageView[] imageViews = new ImageView[5];
                     imageViews[0] = (ImageView) convertView.findViewById(R.id.sponsor_image_1);
@@ -184,9 +189,29 @@ public class Sponsors extends Fragment {
                     imageViews[3] = (ImageView) convertView.findViewById(R.id.sponsor_image_4);
                     imageViews[4] = (ImageView) convertView.findViewById(R.id.sponsor_image_5);
                     //set the appropriate data
-                    imageViews[0].setImageResource(getResources().getIdentifier(sponsorRow.get(0).logo + ".png",
-                            "drawable", getContext().getPackageName()));
-                    Log.v("DEBUG", sponsorRow.get(0).name);
+                    for (int i=0;i<5; i++){
+                        if(i < sponsorRow.count){
+                            AssetManager assetManager = getContext().getAssets();
+                            InputStream is;
+                            try {
+                                is = assetManager.open(sponsorRow.get(i).logo+".png");
+                                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                                imageViews[i].setImageBitmap(bitmap);
+                                imageViews[i].setTag(sponsorRow.get(i).website);
+                                is.close();
+                                //set clicker
+                                imageViews[i].setOnClickListener(new View.OnClickListener() {
+                                    public void onClick(View v) {
+                                        goToUrl((String)v.getTag());
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+
 
                     break;
                 case TYPE_HEADER:
@@ -197,6 +222,12 @@ public class Sponsors extends Fragment {
             }
 
             return convertView;
+        }
+
+        private void goToUrl (String url) {
+            Uri uriUrl = Uri.parse(url);
+            Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+            startActivity(launchBrowser);
         }
     }
 

@@ -31,6 +31,13 @@
     ],
     "November 28, 2015":[
         {
+            "title": "Yoga",
+            "info": "Stretch yo self before you wreck yo self",
+            "location": "Main Reception",
+            "time": "7:00 AM",
+            "notify": false
+        },
+        {
             "title": "Breakfast",
             "info": "Arguably the most important meal of the day",
             "location": "Rm. 1142",
@@ -39,7 +46,7 @@
         },
         {
             "title": "Workshop",
-            "info": "Info-tech Research Group Worshop",
+            "info": "Info-tech Research Group Workshop",
             "location": "Rm. 2038",
             "time": "10:30 AM",
             "notify": false

@@ -13,7 +13,7 @@ import java.util.Locale;
  */
 public class HackathonConstants {
 
-    private String hackathonEndTimeString = "11/26/2015 11:44 pm";
+    private String hackathonEndTimeString = "11/29/2015 10:00 am";
     public Date hackathonEndTime;
     public static Context appContext;
 
