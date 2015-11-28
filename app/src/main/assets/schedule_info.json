@@ -33,7 +33,7 @@
         {
             "title": "Yoga",
             "info": "Stretch yo self before you wreck yo self",
-            "location": "Main Reception",
+            "location": "Auditorium Stage",
             "time": "7:00 AM",
             "notify": false
         },
@@ -63,13 +63,6 @@
             "info": "Digital Boundary Group Workshop: The Root of Hacking",
             "location": "Rm. 1162",
             "time": "1:30 PM",
-            "notify": false
-        },
-        {
-            "title": "Workshop",
-            "info": "Big Viking Games Workshop",
-            "location": "Rm. 2038",
-            "time": "2:30 PM",
             "notify": false
         },
         {
